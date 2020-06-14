@@ -1,5 +1,5 @@
 
-const mySqlRoot = require('../db/mysql-root');
+const mySqlRoot = require('../db/mysql/mysql-root');
 
 // route enfant message
 exports.welcomeMessage = (req, res) => {

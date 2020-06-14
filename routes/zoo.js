@@ -1,12 +1,13 @@
 const express = require('express');
+// mores informations about router
 const router = express.Router();
 
-const zooController = require('../controllers/zooController')
+const zooController = require('../controllers/zooController');
 
 router.get('/message', zooController.welcomeMessage);
-router.get('/nom-animaux', zooController.animalsNames);
-router.get('/maladie-cont-u', zooController.animalsDiseaseOnce);
-router.get('/nom-employes', zooController.employee);
+router.get('/noms-animaux', zooController.animalsNames);
+router.get('/maladies-cont-u', zooController.animalsDiseaseOnce);
+router.get('/noms-employes', zooController.employee);
 
 /**
  * Noms et numéros de cage, des animaux males qui sont originaires du gabon et dont la date de naissance est antérieure à 1980

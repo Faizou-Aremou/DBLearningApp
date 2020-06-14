@@ -1,8 +1,7 @@
 // import de express
 const express = require('express');
 const app = express();
-// importer les routes de zoo
-// QUE FAIS REQUIRE dans les détails
+// importer les routes
 const zooRoutes = require('./routes/zoo');
 // Que fais app use  : recupère toutes les routes enregistrées dans l'appliacation express
 app.use('/zoo', zooRoutes);
