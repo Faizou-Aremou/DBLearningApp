@@ -1,21 +1,5 @@
 
-const mysql = require('mysql');
-const url = require('url');
-
-// connection au serveur de base de données mysql
-var connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: 'AremouMP',
-  database: 'zoo'
-});
-
-connection.connect((err) => {
-  if (err) throw err;
-  console.log("Connected!");
-});
-
-
+const mySqlRoot = require('../db/mysql-root');
 
 // route enfant message
 exports.welcomeMessage = (req, res) => {
@@ -30,29 +14,16 @@ exports.welcomeMessage = (req, res) => {
 
 exports.animalsNames = (req, res) => {
 
-
-  try {
-
-    connection.query('select nomA from `LesAnimaux`', (error, result, field) => {
-      if (error) {
-
-        throw error;
-
-      } else {
-
-        res.json({
-          nomAs: result
-        });
-
-      }
-    })
-
-  } catch (error) {
-    res.send(error);
-  }
-
+  mySqlRoot.query('select nomA from `LesAnimaux`').then((result) => {
+    res.json({
+      nomAs: result
+    });
+  }).catch((err) => {
+    res.status(503).send(err);
+  });
 
 }
+
 
 /**
  * Maladies contractées au moins une fois par les animaux du zoo
@@ -61,20 +32,13 @@ exports.animalsNames = (req, res) => {
 
 exports.animalsDiseaseOnce = (req, res) => {
 
-  try {
-    connection.query('select distinct nomM from `LesMaladies`', (error, result, fields) => {
-      if (error) {
-        throw error;
-      } else {
-        res.json({
-          nomMs: result
-        });
-      }
-    })
-  } catch (error) {
-    res.send(error);
-  }
-
+  mySqlRoot.query('select distinct nomM from `LesMaladies`').then((result) => {
+    res.json({
+      nomMs: result
+    });
+  }).catch((err) => {
+    res.status(503).send(err);
+  });
 
 }
 /**
@@ -83,21 +47,13 @@ exports.animalsDiseaseOnce = (req, res) => {
  */
 exports.employee = (req, res) => {
 
-  try {
-    connection.query('select nomE from `LesEmployes` where `adresse`=?', ['papeete'], (error, result, fields) => {
-
-      if (error) {
-        throw error;
-      }
-      res.json({
-        nomEs: result
-      })
-
-
-    })
-  } catch (err) {
-    res.send(error);
-  }
+  mySqlRoot.query('select nomE from `LesEmployes` where `adresse`=?', ['papeete']).then((result) => {
+    res.json({
+      nomMs: result
+    });
+  }).catch((err) => {
+    res.status(503).send(err);
+  });
 
 }
 
@@ -107,24 +63,12 @@ exports.employee = (req, res) => {
  */
 exports.gabonAnimalsNames = (req, res) => {
 
-  try {
-    connection.query('select nomA, noCage from `LesAnimaux`', (error, result, fields) => {
-
-      if (error) {
-        throw error;
-      } else {
-        res.json({
-          nomAs_noCages: result
-        })
-
-      }
+  mySqlRoot.query('select nomA, noCage from `LesAnimaux` where `sexe`=? and pays=?', ['male', 'gabon']).then((result) => {
+    res.json({
+      nomAs_noCages: result
     })
-  } catch (error) {
-    res.send(error);
-  }
-
+  }).catch((err) => {
+    res.status(503).send(err);
+  });
 }
 
-process.on('SIGINT', () => {
-  connection.end();
-})

@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 
-var zooController = require('../controllers/zooController')
+const zooController = require('../controllers/zooController')
 
 router.get('/message', zooController.welcomeMessage);
 router.get('/nom-animaux', zooController.animalsNames);
