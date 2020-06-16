@@ -8,21 +8,5 @@ const mySqlRoot = new MySqlRoot({
   database: 'zoo'
 });
 
-/*try {
-  connection.connect((err) => {
-    if (err) throw err;
-    console.log("Connected!");
-    process.on('SIGINT', () => {
-      connection.end();
-    })
-
-    
-  });
-
-} catch (error) {
-  console.log('error is happen')
-}*/
-
-
 module.exports = mySqlRoot;
 
