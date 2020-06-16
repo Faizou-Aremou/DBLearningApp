@@ -3,7 +3,7 @@ const mysql = require('mysql');
 class MySqlRoot {
     constructor(config) {
         this.connection = mysql.createConnection(config);
-        process.on('SIGINT', () => {
+       process.on('SIGINT', () => {
             connection.end();
         })
     }

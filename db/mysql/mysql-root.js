@@ -1,10 +1,10 @@
 
 const MySqlRoot = require('./mysql-root-model');
-// connection au serveur de base de données mysql
+// connection au serveur de base de données mysql user : root mp: AremouMP
 const mySqlRoot = new MySqlRoot({
   host: "localhost",
-  user: "root",
-  password: 'AremouMP',
+  user: process.argv[2],
+  password: process.argv[3],
   database: 'zoo'
 });
 
