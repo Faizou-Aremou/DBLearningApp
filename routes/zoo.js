@@ -22,5 +22,6 @@ router.get('/employes', zooController.gardiensCagesVides);
 router.get('/employes-charly', zooController.employesCharly);
 router.get('/doyen-zoo', zooController.doyenzoo);
 router.get('/cage-arthur', zooController.doyenzoo);
+router.get('/distinct-func', zooController.distinctFunc);
 
 module.exports = router;

@@ -2,7 +2,7 @@
   "name": "dblearning",
   "version": "1.0.0",
   "description": "interacte with sql data base inspired by m2 cci TP",
-  "main": "main.js",
+  "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
     "mysql": "^2.18.1"

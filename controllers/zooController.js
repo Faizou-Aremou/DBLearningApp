@@ -1,9 +1,8 @@
-
 const mySqlRoot = require('../db/mysql/mysql-root');
 
 // route enfant message
 exports.welcomeMessage = (req, res) => {
-  res.json({ message: 'Hello world' });
+    res.json({ message: 'Hello world' });
 }
 
 /**
@@ -14,13 +13,13 @@ exports.welcomeMessage = (req, res) => {
 
 exports.animalsNames = (req, res) => {
 
-  mySqlRoot.query('select nomA from `LesAnimaux`').then((result) => {
-    res.json({
-      nomAs: result
+    mySqlRoot.query('select nomA from `LesAnimaux`').then((result) => {
+        res.json({
+            nomAs: result
+        });
+    }).catch((err) => {
+        res.status(503).send(err);
     });
-  }).catch((err) => {
-    res.status(503).send(err);
-  });
 
 }
 
@@ -32,28 +31,28 @@ exports.animalsNames = (req, res) => {
 
 exports.animalsDiseaseOnce = (req, res) => {
 
-  mySqlRoot.query('select distinct nomM from `LesMaladies`').then((result) => {
-    res.json({
-      nomMs: result
-    });
-  }).catch((err) => {
-    res.status(503).send(err);
-  });
+        mySqlRoot.query('select distinct nomM from `LesMaladies`').then((result) => {
+            res.json({
+                nomMs: result
+            });
+        }).catch((err) => {
+            res.status(503).send(err);
+        });
 
-}
-/**
- * Noms des employés qui habitent la ville de papeete
- * select nomE from Emmployes where adresse=papeete
- */
+    }
+    /**
+     * Noms des employés qui habitent la ville de papeete
+     * select nomE from Emmployes where adresse=papeete
+     */
 exports.employee = (req, res) => {
 
-  mySqlRoot.query('select nomE from `LesEmployes` where `adresse`=?', ['papeete']).then((result) => {
-    res.json({
-      nomMs: result
+    mySqlRoot.query('select nomE from `LesEmployes` where `adresse`=?', ['papeete']).then((result) => {
+        res.json({
+            nomMs: result
+        });
+    }).catch((err) => {
+        res.status(503).send(err);
     });
-  }).catch((err) => {
-    res.status(503).send(err);
-  });
 
 }
 
@@ -63,13 +62,13 @@ exports.employee = (req, res) => {
  */
 exports.gabonAnimalsNames = (req, res) => {
 
-  mySqlRoot.query('select nomA, noCage from `LesAnimaux` where `sexe`=? and pays=?', ['male', 'gabon']).then((result) => {
-    res.json({
-      nomAs_noCages: result
-    })
-  }).catch((err) => {
-    res.status(503).send(err);
-  });
+    mySqlRoot.query('select nomA, noCage from `LesAnimaux` where `sexe`=? and pays=?', ['male', 'gabon']).then((result) => {
+        res.json({
+            nomAs_noCages: result
+        })
+    }).catch((err) => {
+        res.status(503).send(err);
+    });
 }
 
 /**
@@ -79,15 +78,13 @@ exports.gabonAnimalsNames = (req, res) => {
  * LesMaladies m on a.nomA = m.nomA where m.nomM is null;
  */
 exports.animauxNoMalades = (req, res) => {
-  mySqlRoot.query('select distinct LesAnimaux.nomA from `LesAnimaux` left join `LesMaladies` on (LesAnimaux.nomA = LesMaladies.nomA) where LesMaladies.nomM is null').then((result) => {
-    res.json(
-      {
-        nomAs: result
-      }
-    )
-  }).catch((err) => {
-    res.status(503).send(err);
-  })
+    mySqlRoot.query('select distinct LesAnimaux.nomA from `LesAnimaux` left join `LesMaladies` on (LesAnimaux.nomA = LesMaladies.nomA) where LesMaladies.nomM is null').then((result) => {
+        res.json({
+            nomAs: result
+        })
+    }).catch((err) => {
+        res.status(503).send(err);
+    })
 }
 
 /**
@@ -97,27 +94,27 @@ exports.animauxNoMalades = (req, res) => {
  * LesMaladies m on a.nomA = m.nomA where m.nomM is null;
  */
 exports.animauxTypesNoMalades = (req, res) => {
-  mySqlRoot.query('select distinct LesAnimaux.nomA, typeA from LesAnimaux left join LesMaladies on (LesAnimaux.nomA = LesMaladies.nomA) where LesMaladies.nomM is null').then((result) => {
-    res.json({
-      nomAs_types: result
-    })
-  }).catch((err) => {
-    res.status(503).send(err);
-  })
-}
-/**
- * Noms des animaux originaires du kenya qui ont contractés une grippe
- * select distinct nomA from LesAnimaux natural join LesMaladies
- * where pays='Kenya' and nomM='grippe'
- */
+        mySqlRoot.query('select distinct LesAnimaux.nomA, typeA from LesAnimaux left join LesMaladies on (LesAnimaux.nomA = LesMaladies.nomA) where LesMaladies.nomM is null').then((result) => {
+            res.json({
+                nomAs_types: result
+            })
+        }).catch((err) => {
+            res.status(503).send(err);
+        })
+    }
+    /**
+     * Noms des animaux originaires du kenya qui ont contractés une grippe
+     * select distinct nomA from LesAnimaux natural join LesMaladies
+     * where pays='Kenya' and nomM='grippe'
+     */
 exports.animauxKenyaGrippe = (req, res) => {
-  mySqlRoot.query('select distinct nomA from LesAnimaux natural join LesMaladies where pays=? and nomM=?', ['Kenya', 'grippe']).then((result) => {
-    res.json({
-      nomAs: result
+    mySqlRoot.query('select distinct nomA from LesAnimaux natural join LesMaladies where pays=? and nomM=?', ['Kenya', 'grippe']).then((result) => {
+        res.json({
+            nomAs: result
+        })
+    }).catch((err) => {
+        res.status(503).send(err);
     })
-  }).catch((err) => {
-    res.status(503).send(err);
-  })
 }
 
 
@@ -130,20 +127,20 @@ exports.animauxKenyaGrippe = (req, res) => {
  */
 
 exports.cagesInocuppee = (req, res) => {
-  mySqlRoot.query(`select LesCages.noCage, fonction from LesCages left join
+        mySqlRoot.query(`select LesCages.noCage, fonction from LesCages left join
    LesAnimaux on (LesCages.noCage = LesAnimaux.noCage) where anNais is null`).then((result) => {
-    res.json({
-      noCages: result
-    })
-  }).catch((err) => {
-    res.status(503).send(err);
-  })
-}
-/**
- * donner pour chaque animal hermaphrodite l'ensemble des maladies qu'il a contractrées
- * (ensemble couple nom d'animal, nom de maladies)
- * select * from LesMaladies
- */
+            res.json({
+                noCages: result
+            })
+        }).catch((err) => {
+            res.status(503).send(err);
+        })
+    }
+    /**
+     * donner pour chaque animal hermaphrodite l'ensemble des maladies qu'il a contractrées
+     * (ensemble couple nom d'animal, nom de maladies)
+     * select * from LesMaladies
+     */
 
 /**
  * il n'y pas de gardiens affecté à des cases vides
@@ -155,44 +152,59 @@ exports.cagesInocuppee = (req, res) => {
  * where nomE is null
  */
 exports.gardiensCagesVides = (req, res) => {
-  mySqlRoot.query(`select LesGardiens.nomE from LesCages left join
+        mySqlRoot.query(`select LesGardiens.nomE from LesCages left join
    LesAnimaux on (LesCages.noCage = LesAnimaux.noCage) 
    left join
    LesGardiens on LesCages.noCage = LesGardiens.noCage
    where nomE is null`).then((result) => {
-    res.json({
-      nomEs: result
-    })
-  }).catch((err) => {
-    res.status(503).send(err);
-  })
-}
-/**
- * un employé est soit un gardien, soit un responsable
- * select distinct e.nomE from LesEmployes e
- * left join LesGardiens g on e.nomE = g.nomE
- * left join LesResponsables r on e.nomE = r.nomE
- * where noCage is null or noAllee is null
- *
- */
+            res.json({
+                nomEs: result
+            })
+        }).catch((err) => {
+            res.status(503).send(err);
+        })
+    }
+    /**
+     * un employé est soit un gardien, soit un responsable
+     * select distinct e.nomE from LesEmployes e
+     * left join LesGardiens g on e.nomE = g.nomE
+     * left join LesResponsables r on e.nomE = r.nomE
+     * where noCage is null or noAllee is null
+     *
+     */
 exports.employes = (req, res) => {
-  mySqlRoot.query(
-    `select distinct LesEmployes.nomE from LesEmployes
+        mySqlRoot.query(
+            `select distinct LesEmployes.nomE from LesEmployes
     left join LesGardiens on (LesEmployes.nomE = LesGardiens.nomE)
     left join LesResponsables on (LesEmployes.nomE = lesResponsables.nomE)
     where noCage is null or noAllee is null`
-  ).then((result) => {
-    res.json({
-      nomEs: result
+        ).then((result) => {
+            res.json({
+                nomEs: result
+            })
+        }).catch((err) => {
+            res.status(503).send(err);
+        })
+    }
+    /**
+     * 7) numéros et fonctions des cages qui sont partagés par des animaux
+     * différents
+     */
+exports.distinctFunc = (req, res) => {
+    mySqlRoot.query(
+        `select noCage, fonction from LesCages
+    natural join LesAnimaux 
+    group by noCage
+    having count(distinct typeA)> 1`
+    ).then((result) => {
+        res.json({
+            noCage_function: result
+        })
+    }).catch((err) => {
+        res.status(503).send(err);
     })
-  }).catch((err) => {
-    res.status(503).send(err);
-  })
 }
-/**
- * 7) numéros et fonctions des cages qui sont partagés par des animaux
- * différents
- */
+
 /**
  * 8)
  * select r.nomE as Responsables, g.nomE as les Gardiens
@@ -202,19 +214,19 @@ exports.employes = (req, res) => {
  * where nomA = 'Charly'
  */
 exports.employesCharly = (req, res) => {
-  mySqlRoot.query(
-    `select LesResponsables.nomE, LesGardiens.nomE
+    mySqlRoot.query(
+        `select LesResponsables.nomE, LesGardiens.nomE
      from LesCages join LesResponsables on (LesCages.noAllee = LesResponsables.noAllee)
      join LesGardiens on (LesCages.noCage = LesGardiens.noCage) join LesAnimaux
      on (LesAnimaux.noCage = LesCages.noCage)
      where nomA = ?`, ['Charly']
-  ).then((result) => {
-    res.json({
-      nomEsGardiens_nomEsResp: result
+    ).then((result) => {
+        res.json({
+            nomEsGardiens_nomEsResp: result
+        })
+    }).catch((err) => {
+        res.status(503).send(err);
     })
-  }).catch((err) => {
-    res.status(503).send(err);
-  })
 }
 
 
@@ -223,36 +235,36 @@ exports.employesCharly = (req, res) => {
  */
 
 exports.doyenzoo = (req, res) => {
-  mySqlRoot.query(
-    `select nomA, pays 
+        mySqlRoot.query(
+            `select nomA, pays 
     from LesAnimaux 
     where anNais in (select min(anNais) from LesAnimaux)`
-  ).then((result) => {
-    res.json({
-      nomAs_pays: result
-    })
-  }).catch((err) => {
-    res.status(503).send(err);
-  })
-}
-/**
- * 10)
- */
+        ).then((result) => {
+            res.json({
+                nomAs_pays: result
+            })
+        }).catch((err) => {
+            res.status(503).send(err);
+        })
+    }
+    /**
+     * 10)
+     */
 
 /**
  * 11) select nomA, pays from LesAnimaux where noCage in (select noCage from LesAnimaux where nomA = 'Arthur') and nomA <> 'Arthur';
  */
 
 exports.cageArthur = (req, res) => {
-  mySqlRoot.query(
-    `select nomA, pays from 
+    mySqlRoot.query(
+        `select nomA, pays from 
     LesAnimaux 
     where noCage in (select noCage from LesAnimaux where nomA = ?)`, ['Arthur']
-  ).then((result) => {
-    res.json({
-      nomEs: result
+    ).then((result) => {
+        res.json({
+            nomEs: result
+        })
+    }).catch((err) => {
+        res.status(503).send(err);
     })
-  }).catch((err) => {
-    res.status(503).send(err);
-  })
 }
