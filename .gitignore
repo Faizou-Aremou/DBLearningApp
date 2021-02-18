@@ -86,3 +86,7 @@ typings/
 
 # DynamoDB Local files
 .dynamodb/
+
+# Package.lock.json
+package-lock.json
+.vscode/
